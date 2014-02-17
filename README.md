@@ -3,7 +3,7 @@ Alloy REST API Adapter with built in caching support
 
 A rest api adapter for appcelerator alloy that has built in caching
 
-the caching code was refactored from this repo [https://gist.github.com/johnthethird](https://gist.github.com/johnthethird)
+the caching code was refactored from this repo [https://gist.github.com/johnthethird/560183](https://gist.github.com/johnthethird/560183)
 
 
 The REST adapter is one of the most used adpaters on projects that we build here a Clearly Innovative. Also integrating third party APIs with request limits and just for overall performance benefits we felt the need to cache data at various times.
