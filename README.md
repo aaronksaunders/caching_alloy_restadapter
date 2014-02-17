@@ -27,7 +27,7 @@ The settings can be added as configuration options when setting up you model. th
     exports.definition = {
         config : {
             adapter : {
-                type : "restapi",
+                type : "restapi_c",
             },
             cacheSettings : {
                 cacheSeconds : 3000,     // timeToLive default value
