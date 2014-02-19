@@ -97,7 +97,7 @@ but your code in the Alloy model would look like this
         // return the object to be returned collection
         return models;
     },
-When processing a JSON response from the API that look like  this
+When processing a JSON response from the API that look like this; the `_response` parameter would contain the data.
 
     {
         "pagination": {
