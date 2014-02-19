@@ -66,6 +66,56 @@ you would setup the call like this when using it with your model
     
         }
     });
+    
+If your response was cached content, the returned object will contain metadata about the cached data. The adapter will add a new `cacheInfo` object the JSON results that will look like this
+
+    cacheInfo : {
+        cached : true,
+        cached_at : "2014-02-19 00:08:05"
+    }
+
+If you are interested in passing the cache information all the way through to your Alloy model, in most cases you would need to utilize the BackboneJS method on your object call `parse`; [see documentation here for additional information](http://backbonejs.org/#Model-parse). 
+
+but your code in the Alloy model would look like this
+
+    parse: function(_response) {
+        var model = this;
+        
+        var models = [];
+        
+        // loop through all data in collection, create model and add to set
+        models = _.map(_response.data, function(_i) {
+            return new model(_i);
+        });
+        
+        // save all of the pagination information for the model
+        model.pagination = _response.pagination;
+        
+        // save any caching information for the model
+        model.cacheInfo = _response.cacheInfo;
+        
+        // return the object to be returned collection
+        return models;
+    },
+When processing a JSON response from the API that look like  this
+
+    {
+        "pagination": {
+            "next_url": "https://api.instagram.com/v1/users/247944034/media/recent?max_id=fffff&client_id=XXX",
+            "next_max_id": "645906744555277618_247944034"
+        },
+        "meta": {
+            "code": 200
+        },
+        "data": [
+            // INSTAGRAM JSON RESPONSE DATA - These will all be models added to the collection
+        ],
+        "cacheInfo" : {
+            cached : true,
+            cached_at : "2014-02-19 00:08:05"        
+        }
+    }
+
 
 Using the Activity Window
 -
