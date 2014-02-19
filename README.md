@@ -115,6 +115,26 @@ you could also leverage the flexibility of javascript and do this
         }
     });
 
+Events and Purging The Cache
+-
+The module responds to an application level event to purge the entire cache; `app.purge.cache` and it takes and optional parameter to display an alert with cache information when the purging is completed
+
+    Ti.App.fireEvent('app.purge.cache', {showAlert: false})
+    
+Or you can call the purge cache method on the the model, any model that is created withe the adapter can purge the entire cache. A nice optimization would be to only purge a specific object type, but I just thought of that !!
+
+    UserPhotos.save({
+        type:'purge',
+        onComplete: function(_response){
+            Ti.API.debug( _response.itemsPurged + " Items were purged from cache");
+        }
+    });
+
+when the purge is completed, an event is fired to indicate the process has completed `app.purged.cache` the event returns information on the number of items purged from the cache
+
+    Ti.App.addEventListener('app.purged.cache', function(_event){
+        Ti.API.debug( _event.itemsPurged + " Items were purged from cache");
+    }
 
 ## License
 
